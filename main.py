@@ -85,7 +85,25 @@ objetos = [
         "obj_textura": None,
         "mesh": 'meshes/mamaco.obj',
         "textura": 'textures/mamaco.jpg',
-        "transformacao": [1, 50, 50, 0.02, 0.02, 0.02, 0, 0, 0]
+        "transformacao": [-120, -190, 50, 0.02, 0.02, 0.02, 90, 0, 0]
+    },
+    {
+        "vao_objeto": None,
+        "obj_indices": None,
+        "obj_buffer": None,
+        "obj_textura": None,
+        "mesh": 'meshes/momolada.obj',
+        "textura": 'textures/momolada.jpg',
+        "transformacao": [-120, -10, -100, 0.03, 0.03, 0.03, 0, -90, 0]
+    },
+{
+        "vao_objeto": None,
+        "obj_indices": None,
+        "obj_buffer": None,
+        "obj_textura": None,
+        "mesh": 'meshes/ak.obj',
+        "textura": 'textures/ak.jpg',
+        "transformacao": [-65, -52, 75, 0.05, 0.05, 0.05, 0, 0, 90]
     },
 
 ]
@@ -191,7 +209,7 @@ def movimentaCamera():
     if right:
         cam.process_keyboard("RIGHT", 0.05)
     if forward:
-        cam.process_keyboard("FORWARD", 0.05)
+        cam.process_keyboard("FORWARD", 0.4)
     if backward:
         cam.process_keyboard("BACKWARD", 0.05)
 
