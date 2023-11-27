@@ -69,6 +69,25 @@ objetos = [
         "textura": 'textures/tirex.jpg',
         "transformacao": [-200, 100, 50, 0.1, 0.1, 0.1, 0, -45, 0]
     },
+    {
+        "vao_objeto": None,
+        "obj_indices": None,
+        "obj_buffer": None,
+        "obj_textura": None,
+        "mesh": 'meshes/ome_de_ferro.obj',
+        "textura": 'textures/audio.png',
+        "transformacao": [1, 0, 1.2, 0.02, 0.02, 0.02, 0, 90, 0]
+    },
+    {
+        "vao_objeto": None,
+        "obj_indices": None,
+        "obj_buffer": None,
+        "obj_textura": None,
+        "mesh": 'meshes/mamaco.obj',
+        "textura": 'textures/mamaco.jpg',
+        "transformacao": [1, 50, 50, 0.02, 0.02, 0.02, 0, 0, 0]
+    },
+
 ]
 
 WIDTH = 800
