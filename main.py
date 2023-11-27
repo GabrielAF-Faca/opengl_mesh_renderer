@@ -13,6 +13,8 @@ Window = None
 Shader_program = None
 shader_luz = None
 
+vao_retangulo = None
+
 objetos = [
 
     {
@@ -96,7 +98,7 @@ objetos = [
         "textura": 'textures/momolada.jpg',
         "transformacao": [-120, -10, -100, 0.03, 0.03, 0.03, 0, -90, 0]
     },
-{
+    {
         "vao_objeto": None,
         "obj_indices": None,
         "obj_buffer": None,
@@ -185,6 +187,116 @@ def tecladoCallback(window, key, scancode, action, mode):
 
     print(luz_posicao)
 
+def inicializa_retangulo():
+    global vao_retangulo
+    # Vao do cubo
+    vao_retangulo = glGenVertexArrays(1)
+    glBindVertexArray(vao_retangulo)
+
+    # VBO dos vértices do cubo
+    # VBO dos vértices do quadrado
+    points = [
+        # face frontal
+        0.5, 0.5, 1,  # 0
+        0.5, -0.5, 1,  # 1
+        -0.5, -0.5, 1,  # 2
+        -0.5, 0.5, 1,  # 3
+        0.5, 0.5, 1,
+        -0.5, -0.5, 1,
+        # face trazeira
+        0.5, 0.5, -1,  # 4
+        0.5, -0.5, -1,  # 5
+        -0.5, -0.5, -1,  # 6
+        -0.5, 0.5, -1,  # 7
+        0.5, 0.5, -1,
+        -0.5, -0.5, -1,
+        # face esquerda
+        -0.5, -0.5, 1,
+        -0.5, 0.5, 1,
+        -0.5, -0.5, -1,
+        -0.5, -0.5, -1,
+        -0.5, 0.5, -1,
+        -0.5, 0.5, 1,
+        # face direita
+        0.5, -0.5, 1,
+        0.5, 0.5, 1,
+        0.5, -0.5, -1,
+        0.5, -0.5, -1,
+        0.5, 0.5, -1,
+        0.5, 0.5, 1,
+        # face baixo
+        -0.5, -0.5, 1,
+        0.5, -0.5, 1,
+        0.5, -0.5, -1,
+        0.5, -0.5, -1,
+        -0.5, -0.5, -1,
+        -0.5, -0.5, 1,
+        # face cima
+        -0.5, 0.5, 1,
+        0.5, 0.5, 1,
+        0.5, 0.5, -1,
+        0.5, 0.5, -1,
+        -0.5, 0.5, -1,
+        -0.5, 0.5, 1,
+    ]
+    points = np.array(points, dtype=np.float32)
+    pvbo = glGenBuffers(1)
+    glBindBuffer(GL_ARRAY_BUFFER, pvbo)
+    glBufferData(GL_ARRAY_BUFFER, points, GL_STATIC_DRAW)
+    glEnableVertexAttribArray(0)
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, None)
+
+    # VBO das normais
+    normais = [
+        # face frontal
+        0.0, 0.0, 1.0,  # apontado para frente
+        0.0, 0.0, 1.0,  # apontado para frente
+        0.0, 0.0, 1.0,  # apontado para frente
+        0.0, 0.0, 1.0,  # apontado para frente
+        0.0, 0.0, 1.0,  # apontado para frente
+        0.0, 0.0, 1.0,  # apontado para frente
+        # face trazeira
+        0.0, 0.0, -1.0,  # apontado para trás
+        0.0, 0.0, -1.0,  # apontado para trás
+        0.0, 0.0, -1.0,  # apontado para trás
+        0.0, 0.0, -1.0,  # apontado para trás
+        0.0, 0.0, -1.0,  # apontado para trás
+        0.0, 0.0, -1.0,  # apontado para trás
+        # face esquerda
+        -1.0, 0.0, 0.0,  # apontado para esquerda e para frente
+        -1.0, 0.0, 0.0,  # apontado para esquerda e para frente
+        -1.0, 0.0, 0.0,  # apontado para esquerda e para frente
+        -1.0, 0.0, 0.0,  # apontado para esquerda e para frente
+        -1.0, 0.0, 0.0,  # apontado para esquerda e para frente
+        -1.0, 0.0, 0.0,  # apontado para esquerda e para frente
+        # face direita
+        1.0, 0.0, 0.0,  # apontado para direita e para frente
+        1.0, 0.0, 0.0,  # apontado para direita e para frente
+        1.0, 0.0, 0.0,  # apontado para direita e para frente
+        1.0, 0.0, 0.0,  # apontado para direita e para frente
+        1.0, 0.0, 0.0,  # apontado para direita e para frente
+        1.0, 0.0, 0.0,  # apontado para direita e para frente
+        # face inferior
+        0.0, -1.0, 0.0,  # apontado para baixo e para frente
+        0.0, -1.0, 0.0,  # apontado para baixo e para frente
+        0.0, -1.0, 0.0,  # apontado para baixo e para frente
+        0.0, -1.0, 0.0,  # apontado para baixo e para frente
+        0.0, -1.0, 0.0,  # apontado para baixo e para frente
+        0.0, -1.0, 0.0,  # apontado para baixo e para frente
+        # face superior
+        0.0, 1.0, 0.0,  # apontado para cima e para frente
+        0.0, 1.0, 0.0,  # apontado para cima e para frente
+        0.0, 1.0, 0.0,  # apontado para cima e para frente
+        0.0, 1.0, 0.0,  # apontado para cima e para frente
+        0.0, 1.0, 0.0,  # apontado para cima e para frente
+        0.0, 1.0, 0.0,  # apontado para cima e para frente
+    ]
+    normais = np.array(normais, dtype=np.float32)
+    nvbo = glGenBuffers(1)
+    glBindBuffer(GL_ARRAY_BUFFER, nvbo)
+    glBufferData(GL_ARRAY_BUFFER, normais, GL_STATIC_DRAW)
+    glEnableVertexAttribArray(1)
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, None)
 
 def mouseCallback(window, xpos, ypos):
     global first_mouse, lastX, lastY
@@ -651,9 +763,8 @@ def especifica_luz_2():
     Ls_2_loc = glGetUniformLocation(shader_luz, "Ls")  # envia o array da Luz Especular para o shader
     glUniform3fv(Ls_2_loc, 1, Ls2)
 
-
 def inicializaRenderizacao():
-    global Window, Shader_program, shader_luz, WIDTH, HEIGHT, Tempo_entre_frames
+    global Window, Shader_program, vao_retangulo, shader_luz, WIDTH, HEIGHT, Tempo_entre_frames
 
     tempo_anterior = glfw.get_time()
 
@@ -690,6 +801,10 @@ def inicializaRenderizacao():
 
         especificaMaterial(0.2, 0.2, 0.2, 0.8, 0.8, 0.8, 0.1, 0.1, 0.1, 32)
 
+        glBindVertexArray(vao_retangulo)
+        transformacaoGenerica([0, -0.6, 0, 100, 1, 100, 0, 0,0])
+        glDrawArrays(GL_TRIANGLES, 0, 36)
+
         for objeto in objetos:
             glBindVertexArray(objeto['vao_objeto'])  # ativamos o objeto que queremos renderizar
 
@@ -716,6 +831,7 @@ def inicializaRenderizacao():
 
 inicializaOpenGL()
 inicializaObjetos()
+inicializa_retangulo()
 inicializa_shader_luz()
 inicializa_shaders()
 inicializaRenderizacao()
